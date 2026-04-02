@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard PPA 2024–2027 · Ministério da Igualdade Racial</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f14;
+  --bg2: #13161e;
+  --bg3: #1a1e28;
+  --bg4: #22273a;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0f2f7;
+  --text2: #9aa0b4;
+  --text3: #6b7391;
+  --green: #22c98e;
+  --green-bg: rgba(34,201,142,0.12);
+  --amber: #f5a623;
+  --amber-bg: rgba(245,166,35,0.12);
+  --red: #f05252;
+  --red-bg: rgba(240,82,82,0.12);
+  --blue: #4f8ef7;
+  --blue-bg: rgba(79,142,247,0.12);
+  --purple: #a78bfa;
+  --purple-bg: rgba(167,139,250,0.12);
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+/* HEADER */
+.topbar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 1rem;
+}
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.logo-mark {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, #22c98e, #4f8ef7);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; color: #fff;
+  flex-shrink: 0;
+}
+.topbar-title { font-size: 13px; font-weight: 500; color: var(--text); }
+.topbar-sub { font-size: 11px; color: var(--text3); }
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.badge {
+  font-size: 10px; font-weight: 500;
+  padding: 3px 9px; border-radius: 20px;
+  border: 1px solid;
+}
+.badge-green { color: var(--green); border-color: rgba(34,201,142,0.3); background: var(--green-bg); }
+.badge-amber { color: var(--amber); border-color: rgba(245,166,35,0.3); background: var(--amber-bg); }
+.badge-red { color: var(--red); border-color: rgba(240,82,82,0.3); background: var(--red-bg); }
+.badge-blue { color: var(--blue); border-color: rgba(79,142,247,0.3); background: var(--blue-bg); }
+.badge-purple { color: var(--purple); border-color: rgba(167,139,250,0.3); background: var(--purple-bg); }
+
+/* LAYOUT */
+.wrapper { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+.section-label {
+  font-size: 10px; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text3);
+  margin: 2rem 0 1rem; display: flex; align-items: center; gap: 8px;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* CARDS */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+.card-title {
+  font-size: 11px; font-weight: 500;
+  color: var(--text3); text-transform: uppercase;
+  letter-spacing: .06em; margin-bottom: 1rem;
+}
+
+/* KPI GRID */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
+.kpi-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.25rem 1.25rem 1rem;
+  position: relative; overflow: hidden;
+  transition: border-color .2s;
+}
+.kpi-card:hover { border-color: var(--border2); }
+.kpi-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.kpi-card.green::before { background: var(--green); }
+.kpi-card.amber::before { background: var(--amber); }
+.kpi-card.red::before { background: var(--red); }
+.kpi-card.blue::before { background: var(--blue); }
+.kpi-label { font-size: 11px; color: var(--text3); margin-bottom: .5rem; line-height: 1.4; }
+.kpi-value { font-size: 28px; font-weight: 600; line-height: 1; }
+.kpi-value.green { color: var(--green); }
+.kpi-value.amber { color: var(--amber); }
+.kpi-value.red { color: var(--red); }
+.kpi-value.blue { color: var(--blue); }
+.kpi-sub { font-size: 11px; color: var(--text3); margin-top: .4rem; }
+.kpi-pct {
+  font-size: 10px; font-family: var(--mono);
+  padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: .4rem;
+}
+.kpi-pct.green { background: var(--green-bg); color: var(--green); }
+.kpi-pct.amber { background: var(--amber-bg); color: var(--amber); }
+.kpi-pct.red { background: var(--red-bg); color: var(--red); }
+
+/* 2 COL */
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+
+/* PROG BARS */
+.prog-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.prog-code {
+  font-size: 10px; font-family: var(--mono); font-weight: 500;
+  color: var(--text3); width: 36px; flex-shrink: 0;
+}
+.prog-name { font-size: 12px; color: var(--text2); flex: 1; line-height: 1.3; }
+.prog-stack { display: flex; gap: 2px; width: 160px; flex-shrink: 0; border-radius: 4px; overflow: hidden; height: 12px; }
+.prog-seg { height: 100%; }
+.prog-total { font-size: 10px; font-family: var(--mono); color: var(--text3); width: 24px; text-align: right; flex-shrink: 0; }
+
+/* H BARS */
+.hbar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.hbar-label { font-size: 12px; color: var(--text2); width: 100px; flex-shrink: 0; }
+.hbar-track { flex: 1; background: var(--bg4); border-radius: 4px; height: 8px; overflow: hidden; }
+.hbar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+.hbar-val { font-size: 11px; font-family: var(--mono); color: var(--text3); width: 36px; text-align: right; flex-shrink: 0; }
+
+/* STATUS LIST */
+.status-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .5rem 0; border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.status-row:last-child { border-bottom: none; }
+.status-name { color: var(--text2); flex: 1; }
+.status-count {
+  font-family: var(--mono); font-size: 13px; font-weight: 500;
+  min-width: 28px; text-align: right;
+}
+
+/* RISK */
+.risk-item {
+  display: flex; gap: 10px; padding: .75rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.risk-item:last-child { border-bottom: none; }
+.risk-badge-pill {
+  font-size: 9px; font-weight: 600; letter-spacing: .05em;
+  padding: 3px 8px; border-radius: 3px; flex-shrink: 0;
+  margin-top: 2px; text-transform: uppercase;
+}
+.rb-critico { background: var(--red-bg); color: var(--red); }
+.rb-moderado { background: var(--amber-bg); color: var(--amber); }
+.rb-atencao { background: var(--blue-bg); color: var(--blue); }
+.risk-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.risk-text strong { color: var(--text); font-weight: 500; }
+
+/* INSIGHT */
+.insight-item {
+  display: flex; gap: 10px; padding: .6rem 0;
+  border-bottom: 1px solid var(--border); align-items: flex-start;
+}
+.insight-item:last-child { border-bottom: none; }
+.i-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.insight-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.insight-text strong { color: var(--text); font-weight: 500; }
+
+/* REC */
+.rec-item {
+  display: flex; gap: 10px; padding: .6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.rec-item:last-child { border-bottom: none; }
+.rec-num {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  color: var(--text3); flex-shrink: 0; margin-top: 2px;
+  width: 20px;
+}
+.rec-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.rec-text strong { color: var(--text); font-weight: 500; }
+
+/* PARCEIRO */
+.parceiro-row {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 8px; padding: .5rem 0; border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.parceiro-row:last-child { border-bottom: none; }
+.parceiro-name { color: var(--text2); flex: 1; line-height: 1.4; }
+.parceiro-badge {
+  font-size: 10px; padding: 2px 7px; border-radius: 3px;
+  font-family: var(--mono); flex-shrink: 0; margin-top: 1px;
+}
+
+/* STORYTELLING */
+.story-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-left: 3px solid var(--blue);
+  border-radius: 12px; padding: 1.5rem;
+  font-size: 13px; color: var(--text2); line-height: 1.8;
+  margin-bottom: 12px;
+}
+.story-card strong { color: var(--text); font-weight: 500; }
+
+/* LEGEND */
+.legend { display: flex; gap: 12px; margin-top: .75rem; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text3); }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+/* DONUT */
+.donut-wrap { display: flex; align-items: center; gap: 1.5rem; }
+.donut-labels { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.donut-label-row { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.dl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.dl-name { color: var(--text2); flex: 1; }
+.dl-val { font-family: var(--mono); font-size: 12px; font-weight: 500; }
+
+/* MIN STATUS CHIPS */
+.min-chip-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.min-chip {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1rem; text-align: center;
+}
+.min-chip .num { font-size: 24px; font-weight: 600; }
+.min-chip .lbl { font-size: 10px; color: var(--text3); margin-top: 4px; line-height: 1.3; }
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--border);
+  margin-top: 3rem; padding: 1.5rem 2rem;
+  font-size: 11px; color: var(--text3);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+
+/* CHART SVG */
+.chart-svg { width: 100%; overflow: visible; }
+
+/* ANIMATION */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate { animation: fadeUp .5s ease forwards; opacity: 0; }
+.d1 { animation-delay: .1s; }
+.d2 { animation-delay: .2s; }
+.d3 { animation-delay: .3s; }
+.d4 { animation-delay: .4s; }
+.d5 { animation-delay: .5s; }
+
+@media (max-width: 900px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .row2, .row3 { grid-template-columns: 1fr; }
+  .topbar-right { display: none; }
+}
+@media (max-width: 500px) {
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .wrapper { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo-mark">MIR</div>
+    <div>
+      <div class="topbar-title">Dashboard PPA 2024–2027 · Ministério da Igualdade Racial</div>
+      <div class="topbar-sub">Monitoramento de entregas e medidas institucionais · Referência: Dezembro 2025</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <span class="badge badge-blue">5802 Povos Tradicionais</span>
+    <span class="badge badge-amber">5803 Juventude Negra</span>
+    <span class="badge badge-green">5804 Igualdade Racial</span>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <div class="section-label">Visão geral — KPIs executivos</div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card blue animate d1">
+      <div class="kpi-label">Total de entregas monitoradas</div>
+      <div class="kpi-value blue">50</div>
+      <div class="kpi-sub">Nos 3 programas do MIR</div>
+    </div>
+    <div class="kpi-card green animate d2">
+      <div class="kpi-label">Metas cumpridas em 2025</div>
+      <div class="kpi-value green">15</div>
+      <div class="kpi-sub">Entregas com resultado confirmado</div>
+      <span class="kpi-pct green">30% do portfólio</span>
+    </div>
+    <div class="kpi-card amber animate d3">
+      <div class="kpi-label">Entregas previstas (em curso)</div>
+      <div class="kpi-value amber">8</div>
+      <div class="kpi-sub">Instrumento ativo, prazo em 2026</div>
+      <span class="kpi-pct amber">16% do portfólio</span>
+    </div>
+    <div class="kpi-card red animate d4">
+      <div class="kpi-label">Entregas não previstas 2025</div>
+      <div class="kpi-value red">27</div>
+      <div class="kpi-sub">Sem instrumento ou fora do prazo</div>
+      <span class="kpi-pct red">54% do portfólio</span>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card blue animate d1">
+      <div class="kpi-label">Medidas institucionais (MIN)</div>
+      <div class="kpi-value blue">42</div>
+      <div class="kpi-sub">Total nos 3 programas</div>
+    </div>
+    <div class="kpi-card green animate d2">
+      <div class="kpi-label">MIN concluídas em 2025</div>
+      <div class="kpi-value green">8</div>
+      <div class="kpi-sub">Medidas com entrega confirmada</div>
+      <span class="kpi-pct green">19% das MIN</span>
+    </div>
+    <div class="kpi-card red animate d3">
+      <div class="kpi-label">MIN sem conclusão em 2025</div>
+      <div class="kpi-value red">34</div>
+      <div class="kpi-sub">Maioria em aberto ou sem andamento</div>
+      <span class="kpi-pct red">81% das MIN</span>
+    </div>
+    <div class="kpi-card amber animate d4">
+      <div class="kpi-label">Entregas com restrições</div>
+      <div class="kpi-value amber">24</div>
+      <div class="kpi-sub">Pessoal, orçamento ou articulação</div>
+      <span class="kpi-pct amber">48% do portfólio</span>
+    </div>
+  </div>
+
+  <div class="section-label">Execução física por programa e secretaria</div>
+
+  <div class="row2">
+    <div class="card animate d1">
+      <div class="card-title">Desempenho por programa — entregas 2025</div>
+
+      <div class="prog-row">
+        <div class="prog-code">5802</div>
+        <div class="prog-name">Povos Tradicionais<br><span style="font-size:10px;color:var(--text3)">11 entregas</span></div>
+        <div class="prog-stack">
+          <div class="prog-seg" style="width:54.5%;background:var(--green)"></div>
+          <div class="prog-seg" style="width:36.4%;background:var(--amber)"></div>
+          <div class="prog-seg" style="width:9.1%;background:var(--red)"></div>
+        </div>
+        <div class="prog-total">55%</div>
+      </div>
+
+      <div class="prog-row">
+        <div class="prog-code">5803</div>
+        <div class="prog-name">Juventude Negra<br><span style="font-size:10px;color:var(--text3)">7 entregas</span></div>
+        <div class="prog-stack">
+          <div class="prog-seg" style="width:0%;background:var(--green)"></div>
+          <div class="prog-seg" style="width:28.6%;background:var(--amber)"></div>
+          <div class="prog-seg" style="width:71.4%;background:var(--red)"></div>
+        </div>
+        <div class="prog-total" style="color:var(--red)">0%</div>
+      </div>
+
+      <div class="prog-row">
+        <div class="prog-code">5804</div>
+        <div class="prog-name">Igualdade Racial<br><span style="font-size:10px;color:var(--text3)">32 entregas</span></div>
+        <div class="prog-stack">
+          <div class="prog-seg" style="width:28.1%;background:var(--green)"></div>
+          <div class="prog-seg" style="width:6.3%;background:var(--amber)"></div>
+          <div class="prog-seg" style="width:65.6%;background:var(--red)"></div>
+        </div>
+        <div class="prog-total" style="color:var(--amber)">28%</div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Meta cumprida</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Entrega prevista</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Não prevista 2025</div>
+      </div>
+    </div>
+
+    <div class="card animate d2">
+      <div class="card-title">Desempenho por secretaria — % metas cumpridas</div>
+
+      <div class="hbar-row">
+        <div class="hbar-label">SQPT</div>
+        <div class="hbar-track">
+          <div class="hbar-fill" style="width:54.5%;background:var(--green)"></div>
+        </div>
+        <div class="hbar-val" style="color:var(--green)">55%</div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin:-6px 0 10px 110px">6 cumpridas de 11</div>
+
+      <div class="hbar-row">
+        <div class="hbar-label">SENAPIR</div>
+        <div class="hbar-track">
+          <div class="hbar-fill" style="width:50%;background:var(--amber)"></div>
+        </div>
+        <div class="hbar-val" style="color:var(--amber)">50%</div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin:-6px 0 10px 110px">3 cumpridas de 6</div>
+
+      <div class="hbar-row">
+        <div class="hbar-label">SEPAR</div>
+        <div class="hbar-track">
+          <div class="hbar-fill" style="width:20.7%;background:var(--amber)"></div>
+        </div>
+        <div class="hbar-val" style="color:var(--amber)">21%</div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin:-6px 0 10px 110px">6 cumpridas de 29</div>
+
+      <div class="hbar-row">
+        <div class="hbar-label">Ouvidoria</div>
+        <div class="hbar-track">
+          <div class="hbar-fill" style="width:2%;background:var(--red)"></div>
+        </div>
+        <div class="hbar-val" style="color:var(--red)">0%</div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin:-6px 0 10px 110px">0 cumpridas de 4</div>
+    </div>
+  </div>
+
+  <div class="section-label">Medidas institucionais (MIN)</div>
+
+  <div class="row3">
+    <div class="card animate d1">
+      <div class="card-title">MIN concluídas por programa</div>
+      <div class="hbar-row">
+        <div class="hbar-label" style="width:70px">5802</div>
+        <div class="hbar-track"><div class="hbar-fill" style="width:16.7%;background:var(--green)"></div></div>
+        <div class="hbar-val" style="color:var(--green)">17%</div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin:-6px 0 10px 80px">3 de 18</div>
+      <div class="hbar-row">
+        <div class="hbar-label" style="width:70px">5803</div>
+        <div class="hbar-track"><div class="hbar-fill" style="width:2%;background:var(--red)"></div></div>
+        <div class="hbar-val" style="color:var(--red)">0%</div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin:-6px 0 10px 80px">0 de 3</div>
+      <div class="hbar-row">
+        <div class="hbar-label" style="width:70px">5804</div>
+        <div class="hbar-track"><div class="hbar-fill" style="width:23.8%;background:var(--amber)"></div></div>
+        <div class="hbar-val" style="color:var(--amber)">24%</div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin:-6px 0 0 80px">5 de 21</div>
+    </div>
+
+    <div class="card animate d2">
+      <div class="card-title">Status MIN — Dezembro 2025</div>
+      <div class="status-row">
+        <span class="status-name">Medida entregue</span>
+        <span class="status-count" style="color:var(--green)">12</span>
+      </div>
+      <div class="status-row">
+        <span class="status-name">Em andamento / outros</span>
+        <span class="status-count" style="color:var(--blue)">14</span>
+      </div>
+      <div class="status-row">
+        <span class="status-name">Sem instrumento identificado</span>
+        <span class="status-count" style="color:var(--red)">9</span>
+      </div>
+      <div class="status-row">
+        <span class="status-name">Sem indicação de conclusão</span>
+        <span class="status-count" style="color:var(--amber)">7</span>
+      </div>
+    </div>
+
+    <div class="card animate d3">
+      <div class="card-title">Revisões sinaliz. para 2026</div>
+      <div class="status-row">
+        <span class="status-name">Manter sem alteração</span>
+        <span class="status-count" style="color:var(--green)">18</span>
+      </div>
+      <div class="status-row">
+        <span class="status-name">Alterar indicador</span>
+        <span class="status-count" style="color:var(--amber)">4</span>
+      </div>
+      <div class="status-row">
+        <span class="status-name">Alterar meta prevista</span>
+        <span class="status-count" style="color:var(--amber)">4</span>
+      </div>
+      <div class="status-row">
+        <span class="status-name">Revisão outros</span>
+        <span class="status-count" style="color:var(--amber)">5</span>
+      </div>
+      <div class="status-row">
+        <span class="status-name">Inseridas no SIOP</span>
+        <span class="status-count" style="color:var(--blue)">14</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Instrumentos e parcerias (TEDs)</div>
+
+  <div class="row2">
+    <div class="card animate d1">
+      <div class="card-title">Principais parceiros institucionais</div>
+      <div class="parceiro-row">
+        <div class="parceiro-name">Universidade Federal Fluminense (UFF)</div>
+        <span class="parceiro-badge" style="background:var(--red-bg);color:var(--red)">10 — atrasos</span>
+      </div>
+      <div class="parceiro-row">
+        <div class="parceiro-name">Fundação Oswaldo Cruz (Fiocruz)</div>
+        <span class="parceiro-badge" style="background:var(--amber-bg);color:var(--amber)">4 — execução</span>
+      </div>
+      <div class="parceiro-row">
+        <div class="parceiro-name">Univ. Federal do Recôncavo da Bahia (UFRB)</div>
+        <span class="parceiro-badge" style="background:var(--green-bg);color:var(--green)">4 — resultados</span>
+      </div>
+      <div class="parceiro-row">
+        <div class="parceiro-name">Univ. Federal de Jataí (UFJ)</div>
+        <span class="parceiro-badge" style="background:var(--blue-bg);color:var(--blue)">2 — mapeamento</span>
+      </div>
+      <div class="parceiro-row">
+        <div class="parceiro-name">CNPq, ENAP, CODEVASF, IFMA, UFMA</div>
+        <span class="parceiro-badge" style="background:var(--bg4);color:var(--text3)">1 cada</span>
+      </div>
+      <div style="margin-top:.75rem;font-size:11px;color:var(--text3)">23 de 50 entregas possuem TED vinculado (46%)</div>
+    </div>
+
+    <div class="card animate d2">
+      <div class="card-title">Distribuição por tipo de instrumento</div>
+      <div class="hbar-row">
+        <div class="hbar-label" style="font-size:11px">TED ativo</div>
+        <div class="hbar-track"><div class="hbar-fill" style="width:46%;background:var(--blue)"></div></div>
+        <div class="hbar-val">23</div>
+      </div>
+      <div class="hbar-row">
+        <div class="hbar-label" style="font-size:11px">Sem instrumento</div>
+        <div class="hbar-track"><div class="hbar-fill" style="width:26%;background:var(--red)"></div></div>
+        <div class="hbar-val">13</div>
+      </div>
+      <div class="hbar-row">
+        <div class="hbar-label" style="font-size:11px">Instrumento direto</div>
+        <div class="hbar-track"><div class="hbar-fill" style="width:18%;background:var(--green)"></div></div>
+        <div class="hbar-val">9</div>
+      </div>
+      <div class="hbar-row">
+        <div class="hbar-label" style="font-size:11px">Em formalização</div>
+        <div class="hbar-track"><div class="hbar-fill" style="width:10%;background:var(--amber)"></div></div>
+        <div class="hbar-val">5</div>
+      </div>
+      <div style="margin-top:.75rem;padding:.75rem;background:var(--bg3);border-radius:8px;font-size:11px;color:var(--text3);line-height:1.6">
+        <strong style="color:var(--amber)">Alerta:</strong> A UFF concentra 43% dos TEDs com maior índice de atrasos e produtos não conformes. UFRB é o parceiro de melhor performance relativa.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Alertas e riscos críticos</div>
+
+  <div class="card animate d1" style="margin-bottom:12px">
+    <div class="risk-item">
+      <span class="risk-badge-pill rb-critico">Crítico</span>
+      <div class="risk-text"><strong>Ouvidoria — 0% de execução:</strong> Nenhuma das 4 entregas foi realizada em 2025. Problemas orçamentários e ausência de infraestrutura de TI identificados como causas estruturais.</div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge-pill rb-critico">Crítico</span>
+      <div class="risk-text"><strong>Programa 5803 – Juventude Negra:</strong> Zero metas cumpridas nas entregas e zero MIN concluídas. Instrução Normativa MIR–Ministério do Esporte jamais celebrada. Risco de não entrega no ciclo PPA.</div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge-pill rb-critico">Crítico</span>
+      <div class="risk-text"><strong>UFF — falha metodológica sistêmica:</strong> 10 entregas com aditivos de prazo e produtos entregues em desconformidade com objetivos. Risco de retrabalho e perda de recursos públicos.</div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge-pill rb-moderado">Moderado</span>
+      <div class="risk-text"><strong>Mapeamento Nacional de Terreiros sem saída:</strong> Iniciativas consecutivas com IBGE/PNUD, SERPRO e BID foram descontinuadas. Medida declarada "não iniciada" após anos de tentativas.</div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge-pill rb-moderado">Moderado</span>
+      <div class="risk-text"><strong>48% das entregas com restrições sinalizadas:</strong> Falta de pessoal (SQPT com 5 cargos vagos de 25), contingenciamento orçamentário e falhas de articulação interinstitucional são as causas recorrentes.</div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge-pill rb-moderado">Moderado</span>
+      <div class="risk-text"><strong>9 MIN sem nenhum instrumento identificado</strong> e 7 sem qualquer indicação de conclusão. Impacto direto nas metas cumulativas de 2026 e 2027.</div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge-pill rb-atencao">Atenção</span>
+      <div class="risk-text"><strong>Invisibilidade de dados no Ministério do Esporte:</strong> Ausência de ferramentas para mensurar recorte racial/etário nos projetos, inviabilizando a gestão por resultado do Programa 5803.</div>
+    </div>
+    <div class="risk-item">
+      <span class="risk-badge-pill rb-atencao">Atenção</span>
+      <div class="risk-text"><strong>Planos de trabalho com prazo 2028 dentro do PPA 2024–2027:</strong> Algumas parcerias preveem entregas além do horizonte do PPA, comprometendo a capacidade de entrega dentro do ciclo vigente.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Insights acionáveis</div>
+
+  <div class="card animate d1" style="margin-bottom:12px">
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--red)"></div>
+      <div class="insight-text"><strong>54% do portfólio não terá entrega em 2025.</strong> Maioria com instrumentos em fase inicial ou sem previsão. Reprogramação realista para 2026 é urgente.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--red)"></div>
+      <div class="insight-text"><strong>Programa 5803 é o mais crítico do MIR.</strong> Zero metas cumpridas nas entregas próprias e nenhuma MIN concluída. Requer intervenção gerencial imediata e redesenho da governança interministerial.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--amber)"></div>
+      <div class="insight-text"><strong>SEPAR concentra 64% das entregas e tem apenas 21% de cumprimento.</strong> O peso do portfólio está desproporcionalmente acima da capacidade operacional da secretaria.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--amber)"></div>
+      <div class="insight-text"><strong>UFF é o parceiro de maior risco operacional.</strong> 10 entregas vinculadas com histórico de aditivos, atrasos e produtos não conformes. Exige revisão contratual e protocolo de conformidade técnica.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--green)"></div>
+      <div class="insight-text"><strong>SQPT é a secretaria com melhor desempenho (55%).</strong> A parceria com UFRB produziu resultados concretos e replicáveis — campanha, guia metodológico e relatórios nacionais com ampla abrangência.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--amber)"></div>
+      <div class="insight-text"><strong>Restrição de pessoal é o gargalo recorrente na SQPT.</strong> 5 cargos vagos de 25 previstos. A sobrecarga sobre coordenadores impacta diretamente o ritmo de formalização de instrumentos.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--red)"></div>
+      <div class="insight-text"><strong>Mapeamento Nacional de Terreiros nunca saiu do papel.</strong> Três iniciativas frustradas. Decisão estratégica e compromisso orçamentário são pré-requisitos antes de qualquer nova formalização.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--amber)"></div>
+      <div class="insight-text"><strong>Ministério do Esporte não possui ferramentas com recorte racial.</strong> Isso torna impossível mensurar o impacto real do Programa 5803. Sem dados, não há gestão por resultado.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--green)"></div>
+      <div class="insight-text"><strong>Campanha Ancestralidade Africana e série Abre Caminhos são boas práticas.</strong> Abrangência nacional, metodologia clara, parceria qualificada com UFRB e entregas documentadas. Modelo a ser replicado.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--amber)"></div>
+      <div class="insight-text"><strong>13 entregas precisam de revisão de indicadores ou metas.</strong> A janela de revisão do PPA 2026 é a oportunidade para eliminar compromissos inviáveis e calibrar metas ao resultado histórico.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--red)"></div>
+      <div class="insight-text"><strong>Produto digital (Chatbot/Disque 138) sem entrega em 2024 e 2025.</strong> Questões de TI e orçamento não resolvidas. Risco real de descontinuidade da meta até 2027.</div>
+    </div>
+    <div class="insight-item">
+      <div class="i-dot" style="background:var(--amber)"></div>
+      <div class="insight-text"><strong>Medidas tratadas como "perenes" contradizem a lógica do PPA.</strong> Instrumentos sem prazo de conclusão inviabilizam mensuração. Necessário redesenho com metas anuais e finitude definida.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Recomendações estratégicas</div>
+
+  <div class="row2">
+    <div class="card animate d1">
+      <div class="card-title">Para gestores públicos</div>
+      <div class="rec-item">
+        <div class="rec-num">01</div>
+        <div class="rec-text"><strong>Instaurar comitê de crise para o Programa 5803.</strong> Com 0% de execução, a ausência de governança interministerial com MDS, Esporte e MDHC compromete toda a entrega do programa até 2027.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">02</div>
+        <div class="rec-text"><strong>Revisar imediatamente os TEDs com UFF.</strong> Estabelecer critérios objetivos de conformidade técnica, cláusulas de cancelamento e redirecionar recursos para parceiros com histórico de resultado.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">03</div>
+        <div class="rec-text"><strong>Decisão estratégica sobre Mapeamento de Terreiros.</strong> Após 3 tentativas frustradas, o MIR deve escolher um único parceiro, garantir recursos antes da formalização e estabelecer governança clara.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">04</div>
+        <div class="rec-text"><strong>Priorizar o provimento dos 5 cargos vagos na SQPT.</strong> A secretaria com melhor desempenho do ministério está operando abaixo da capacidade estrutural. Restrição de pessoal é o principal gargalo.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">05</div>
+        <div class="rec-text"><strong>Usar a janela do PPA 2026 para realinhamento estratégico.</strong> Retirar ou reformular as 13 entregas com indicadores inadequados e metas irrealistas. Evitar compromissos não entregáveis no ciclo final.</div>
+      </div>
+    </div>
+
+    <div class="card animate d2">
+      <div class="card-title">Para o cidadão — transparência e controle social</div>
+      <div class="rec-item">
+        <div class="rec-num">01</div>
+        <div class="rec-text"><strong>Publicar painel com linguagem acessível.</strong> "De cada 10 metas, 3 foram cumpridas em 2025." Proporções são mais compreensíveis que números absolutos para o público geral.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">02</div>
+        <div class="rec-text"><strong>Apresentar as causas das não entregas de forma honesta.</strong> Falta de pessoal, cortes orçamentários e atrasos em parcerias — com indicação das providências tomadas pelo ministério.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">03</div>
+        <div class="rec-text"><strong>Destacar entregas que beneficiaram comunidades concretas.</strong> Campanha Ancestralidade, Plano Cigano, Caravana Brasil Cigano (14 municípios, ~2.400 pessoas) e Guia Inclua–Quilombola.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">04</div>
+        <div class="rec-text"><strong>Criar mapa visual dos municípios alcançados.</strong> Caravana Brasil Cigano e ações de terreiro têm impacto territorial concreto. Visualizar esse alcance aproxima o cidadão das políticas públicas.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">05</div>
+        <div class="rec-text"><strong>Disponibilizar os relatórios produzidos com recursos públicos.</strong> Guia Inclua–Quilombola (IPEA), relatórios Abre Caminhos e Cartilha Cigana devem ter links visíveis no portal do ministério.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Storytelling executivo</div>
+
+  <div class="story-card animate d1">
+    O Ministério da Igualdade Racial encerra 2025 com <strong>30% das suas entregas cumpridas</strong> (15 de 50) e apenas <strong>19% das medidas institucionais concluídas</strong> (8 de 42) — desempenho aquém do necessário para garantir as metas PPA 2026–2027. O <strong>Programa 5803 – Juventude Negra</strong> é o ponto mais crítico: zero entregas e zero medidas concluídas, sinalizando risco estrutural de não entrega até o fim do ciclo. A <strong>SEPAR</strong>, responsável por 64% do portfólio, tem o menor índice de cumprimento (21%) e concentra os maiores riscos. Em contraponto, a <strong>SQPT</strong> apresentou desempenho superior (55%), demonstrando que parcerias universitárias bem estruturadas — como o modelo UFRB — produzem resultados concretos e replicáveis. Os principais gargalos são: <strong>falta de pessoal, contingenciamento orçamentário, falhas metodológicas em TEDs (especialmente UFF)</strong> e ausência de instrumentos de coleta com recorte racial em ministérios parceiros. A janela de revisão do PPA é uma oportunidade estratégica para realinhamento de metas, exclusão de entregas inviáveis e fortalecimento do portfólio prioritário para 2026–2027.
+  </div>
+
+  <div class="section-label">Sugestões de evolução analítica</div>
+
+  <div class="row2">
+    <div class="card animate d1">
+      <div class="card-title">Análises futuras recomendadas</div>
+      <div class="rec-item">
+        <div class="rec-num">A1</div>
+        <div class="rec-text"><strong>Cruzamento com execução orçamentária (SIOP).</strong> Relacionar % de meta cumprida com % do orçamento executado por entrega para identificar ineficiência financeira.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">A2</div>
+        <div class="rec-text"><strong>Análise de impacto socioeconômico.</strong> Cruzar entregas realizadas com indicadores do IBGE (PNAD, Censo 2022) para populações-alvo: quilombolas, ciganos, jovens negros em periferias.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">A3</div>
+        <div class="rec-text"><strong>Modelo preditivo de risco de entrega.</strong> Usando histórico 2024–2025, construir score de probabilidade de entrega para cada meta de 2026 e 2027.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">A4</div>
+        <div class="rec-text"><strong>Análise de desempenho por parceiro (TED).</strong> Criar scorecard para cada instituição parceira com critérios de prazo, conformidade técnica e resultado, orientando futuras contratações.</div>
+      </div>
+    </div>
+    <div class="card animate d2">
+      <div class="card-title">Indicadores mais sofisticados</div>
+      <div class="rec-item">
+        <div class="rec-num">I1</div>
+        <div class="rec-text"><strong>Índice de Efetividade por Entrega (IEE).</strong> Relação entre resultado alcançado × aderência ao prazo × valor investido, gerando um único número comparável entre programas.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">I2</div>
+        <div class="rec-text"><strong>Taxa de maturidade dos instrumentos.</strong> Classificar TEDs e ACTs em estágios (planejamento, formalização, execução, conclusão) para criar um funil de execução visual.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">I3</div>
+        <div class="rec-text"><strong>Indicador de cobertura territorial.</strong> Para cada entrega com abrangência declarada "nacional", criar proxy quantitativo de municípios/regiões efetivamente alcançados.</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">I4</div>
+        <div class="rec-text"><strong>Painel de alerta precoce.</strong> Monitorar semestralmente os sinais de risco (ausência de instrumento + restrição sinalizada + meta não batida no ano anterior) como gatilho automático de revisão gerencial.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>Dashboard PPA 2024–2027 · Ministério da Igualdade Racial · Referência: Dezembro 2025</span>
+  <span>Base: SIOP Julho/2025 + Alinhamento Bilaterais Novembro–Dezembro/2025</span>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate').forEach(el => {
+  observer.observe(el);
+});
+
+document.querySelectorAll('.hbar-fill').forEach(bar => {
+  const w = bar.style.width;
+  bar.style.width = '0';
+  setTimeout(() => { bar.style.width = w; }, 400);
+});
+</script>
+</body>
+</html>
